@@ -1,0 +1,84 @@
+use students;
+create table users(usersid int not null primary key,name varchar(255),gender varchar(15),batch varchar(15),email varchar(150) unique);
+insert into users(usersid,name,gender,batch ,email ) values
+(1,'Alex','Male','B20WD','alex@gmail.com'),
+(2,'Bala','Male','B21WE','bala23@gmail.com'),
+(3,'Carey','Male','B29WD','carey@gmail.com'),
+(4,'Daniya','Female','B25WD','daniya90@gmail.com'),
+(5,'Elakiya','Female','B29WD','ely@gmail.com');
+select * from users;
+
+
+create table codekata(usersid int,pending int,solved int,total int);
+insert into codekata (usersid,pending,solved,total) values
+('1','5',95,100),
+('2','3',97,100),
+('3','60',40,100),
+('4','32',68,100),
+('5','90',10,100);
+select * from codekata;
+
+
+create table attendance(studentid int primary key, present varchar(17),absent varchar(17),gender varchar(15));
+insert into attendance(studentid,present,absent,gender) values(1,'Present','','Male'),
+(2,'','Absent','Female'),(3,'','Absent','Male'),(4,'Present','','Female'),(5,'Present','','Trans');
+select * from attendance;
+
+
+create table topics(HTML varchar(300),CSS varchar(300),Javascpt varchar(300));
+insert  into topics (HTML,CSS,Javascpt) values('Form','overflow','loop'),
+('Basic tags','Boxmodel','hoisting'),('Inline tag','Positioning','Array'),
+('Block element','Mediaquery','condtional statement'),('Headtags','Bootstrap','Mrf');
+
+create table task(userid int primary key,complete varchar(200),incomplete varchar(200));
+insert into task (userid,complete,incomplete) values(1,'Completed',''),
+(2,'','Incomplete'),(3,'Completed',''),(4,'','Incomplete'),(5,'Completed','');
+
+create table company_drives(userid int primary key,CD1 varchar(200),CD2 varchar(200),CD3 varchar(200));
+drop table company_drives;
+select * from company_drives;
+insert into company_drives(userid,CD1,CD2,CD3)values(1,'3','2','1'),(2,'2','2','1'),
+(3,'3','2','3'),
+(4,'3','4','1'),(5,'3','7','1');
+
+
+create table mentor(mentorsid int primary key,name varchar(250),email varchar(250),batch varchar(230),assignedstudent varchar(40));
+insert into mentor (mentorsid,name,email,batch,assignedstudent) values(1,'Nagarajan','naga@gmail.com','B30','30'),
+(2,'Yogesh','yogesh@gmail.com','B29','40'),(3,'Mohamed','mohamed@gmail.com','B29','24'),
+(4,'Suman','suman@gmail.com','B30','26'),(5,'Divya','divya@gmail.com','B30','38');
+
+create table students_activated_course(studentsid int,course varchar(250),mentor varchar(250),courseid int primary key);
+insert into students_activated_course(studentsid,course,mentor,courseid) values
+(1,'FSD','Nagarajan',11),
+(2,'ST','Suman',12),(3,'PY','Nagarajan',13),(4,'SQL','Nagarajan',14),
+(5,'SD','Nagarajan',15);
+
+
+create table courses(courseid int,coursename varchar(150));
+insert into courses(courseid,coursename)values(10,'PYTHON'),
+(11,'FullstackDevlopment'),(12,'Softwaretesting'),
+(13,'Softwaredevmnt'),(14,'SQL');
+
+The following are the queries need to be executed:
+1. Create tables for the above list given
+2. insert at least 5 rows of values in each table
+
+3. get number problems solved in codekata by combining the users
+Queries:
+select users.usersid,users.name,users.gender,codekata.solved,codekata.pending,codekata.total from users join codekata on users.usersid=codekata.usersid;
+
+4.display the no of company drives attended by a user
+i)select users.usersid,company_drives.CD1,company_drives.CD2,company_drives.CD3 from users join company_drives 
+on users.usersid=company_drives.userid;             
+ii)select userid,CD1,CD2,cd3 from company_drives ;
+
+5.combine and display students_activated_courses and courses for a specific user groping them based on the course
+select  students_activated_course.studentsid,students_activated_course.course,courses.coursename from 
+students_activated_course join courses on students_activated_course.courseid=courses.courseid ;
+
+6.list all the mentors
+select * from mentor;
+select name from mentor; 
+
+7.list the number of students that are assigned for a mentor
+select assignedstudent from mentor;
